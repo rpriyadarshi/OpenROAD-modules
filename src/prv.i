@@ -1,0 +1,25 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2024, Daedel Inc.
+// All rights reserved.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+%module prv
+
+%{
+
+#include "prv/Prv.hh"
+#include "ord/OpenRoad.hh"
+
+prv::Prv * getPrv()
+{
+  return ord::OpenRoad::openRoad()->getPrv();
+}
+
+%}
+
+%inline
+%{
+
+%}  // inline

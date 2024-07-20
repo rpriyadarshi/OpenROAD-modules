@@ -1,0 +1,20 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2024, Daedel Inc.
+// All rights reserved.
+//
+///////////////////////////////////////////////////////////////////////////////
+#pragma once
+
+namespace ord {
+class OpenRoad;
+}
+
+namespace prv {
+class Prv;
+
+Prv* makePrv();
+void initPrv(ord::OpenRoad* openroad);
+void deletePrv(Prv* prv);
+
+}  // namespace prv
