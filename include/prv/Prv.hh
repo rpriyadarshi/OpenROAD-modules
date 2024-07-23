@@ -7,39 +7,38 @@
 #pragma once
 
 namespace odb {
-  class dbDatabase;
-  class dbBTerm;
-  class dbBlock;
-};
+class dbDatabase;
+class dbBTerm;
+class dbBlock;
+};  // namespace odb
 
 namespace sta {
-  class dbSta;
+class dbSta;
 };
 
 namespace utl {
-  class Logger;
+class Logger;
 };
 
 namespace prv {
 
 class Prv
 {
-private: // Data members
+ private:  // Data members
   // Global state
   odb::dbDatabase* db_;
   sta::dbSta* sta_;
   utl::Logger* logger_;
 
-public: // Constructors/destructors/initializations
+ public:  // Constructors/destructors/initializations
   Prv();
 
   void init(odb::dbDatabase* db, sta::dbSta* sta, utl::Logger* logger);
 
-public: // Algorithms
+ public:  // Algorithms
   // Path tracing based on odb
-  void tracePathToAllSinks(odb::dbBTerm* input_port, odb::dbBlock* block);
-  void tracePathToAllSinks(const std::string& input_port);
-
+  void tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block);
+  void tracePathToAllSinks(const std::string& inputPort);
 };
 
 }  // namespace prv
