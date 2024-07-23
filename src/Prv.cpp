@@ -16,6 +16,30 @@
 #include "prv/Prv.hh"
 
 namespace prv {
+  
+class TracerCallbacks 
+{
+private:
+
+public: // Constructors/destructors.
+  TracerCallbacks() {}
+
+public: // Callbacks
+  void applyNet(odb::dbNet* net)
+  {
+    std::cout << "Net: " << net->getName() << std::endl;
+  }
+
+  void applyInst(odb::dbInst* inst)
+  {
+      std::cout << "  Instance: " << inst->getName() << std::endl;
+  }
+
+  void applyBTerm(odb::dbBTerm* bterm)
+  {
+      std::cout << "  Output Port: " << bterm->getName() << std::endl;
+  }
+};
 
 Prv::Prv()
 {
@@ -28,7 +52,7 @@ void Prv::init(odb::dbDatabase* db, sta::dbSta* sta, utl::Logger* logger)
   sta_ = sta;
 }
 
-void Prv::tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block)
+void Prv::tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block, TracerCallbacks& cb)
 {
   std::unordered_set<odb::dbNet*> visitedNets;
   std::unordered_set<odb::dbInst*> visitedInsts;
@@ -45,7 +69,7 @@ void Prv::tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block)
     }
     visitedNets.insert(net);
 
-    std::cout << "Net: " << net->getName() << std::endl;
+    cb.applyNet(net);
 
     auto iterms = net->getITerms();
     for (auto iterm : iterms) {
@@ -55,7 +79,7 @@ void Prv::tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block)
       }
       visitedInsts.insert(inst);
 
-      std::cout << "  Instance: " << inst->getName() << std::endl;
+      cb.applyInst(inst);
 
       auto instIterms = inst->getITerms();
       for (auto inst_iterm : instIterms) {
@@ -68,7 +92,7 @@ void Prv::tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block)
 
     auto bterms = net->getBTerms();
     for (auto bterm : bterms) {
-      std::cout << "  Output Port: " << bterm->getName() << std::endl;
+      cb.applyBTerm(bterm);
     }
   }
 }
@@ -82,9 +106,10 @@ void Prv::tracePathToAllSinks(const std::string& inputPortName)
   auto inputPort = block->findBTerm(inputPortName.c_str());
 
   if (inputPort) {
-    tracePathToAllSinks(inputPort, block);
+    TracerCallbacks cb;
+    tracePathToAllSinks(inputPort, block, cb);
   } else {
-    std::cerr << "Input inputPort \"" << inputPortName << "\" not found."
+    std::cerr << "Input port \"" << inputPortName << "\" not found."
               << std::endl;
   }
 }

@@ -21,6 +21,7 @@ class Logger;
 };
 
 namespace prv {
+class TracerCallbacks;
 
 class Prv
 {
@@ -37,7 +38,7 @@ class Prv
 
  public:  // Algorithms
   // Path tracing based on odb
-  void tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block);
+  void tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block, TracerCallbacks& cb);
   void tracePathToAllSinks(const std::string& inputPort);
 };
 
