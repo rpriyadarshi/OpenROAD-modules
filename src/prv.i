@@ -9,8 +9,8 @@
 
 %{
 
-#include "prv/Prv.hh"
 #include "ord/OpenRoad.hh"
+#include "prv/Prv.hh"
 
 prv::Prv * getPrv()
 {
@@ -21,5 +21,10 @@ prv::Prv * getPrv()
 
 %inline
 %{
-
+  void trace_path_to_all_sinks(const char* input_port)
+  {
+    if (input_port != nullptr) {
+      getPrv()->tracePathToAllSinks(input_port);
+    }
+  }
 %}  // inline

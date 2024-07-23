@@ -7,8 +7,8 @@
 
 #include "prv/MakePrv.hh"
 
-#include "prv/Prv.hh"
 #include "ord/OpenRoad.hh"
+#include "prv/Prv.hh"
 
 namespace sta {
 extern const char* prv_tcl_inits[];
