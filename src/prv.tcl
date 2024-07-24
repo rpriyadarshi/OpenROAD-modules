@@ -21,13 +21,23 @@ proc check_block_exists { } {
   }
 }
 
-sta::define_cmd_args "trace_path_to_all_sinks" {file}
-proc trace_path_to_all_sinks { args } {
-  sta::parse_key_args "trace_path_to_all_sinks" args keys {} flags {}
+sta::define_cmd_args "trace_path_to_all_sinks_db" {port}
+proc trace_path_to_all_sinks_db { args } {
+  sta::parse_key_args "trace_path_to_all_sinks_db" args keys {} flags {}
 
   check_block_exists
-  sta::check_argc_eq1 "trace_path_to_all_sinks" $args
+  sta::check_argc_eq1 "trace_path_to_all_sinks_db" $args
 
-  prv::trace_path_to_all_sinks [lindex $args 0]
+  prv::trace_path_to_all_sinks_db [lindex $args 0]
+}
+
+sta::define_cmd_args "trace_path_to_all_sinks_sta" {port}
+proc trace_path_to_all_sinks_sta { args } {
+  sta::parse_key_args "trace_path_to_all_sinks_sta" args keys {} flags {}
+
+  check_block_exists
+  sta::check_argc_eq1 "trace_path_to_all_sinks_sta" $args
+
+  prv::trace_path_to_all_sinks_sta [lindex $args 0]
 }
 

@@ -14,6 +14,9 @@ class dbBlock;
 
 namespace sta {
 class dbSta;
+class Pin;
+class Net;
+class Network;
 };
 
 namespace utl {
@@ -38,8 +41,12 @@ class Prv
 
  public:  // Algorithms
   // Path tracing based on odb
-  void tracePathToAllSinks(odb::dbBTerm* inputPort, odb::dbBlock* block, TracerCallbacks& cb);
-  void tracePathToAllSinks(const std::string& inputPort);
+  void tracePathToAllSinksDb(odb::dbBTerm* inputPort, odb::dbBlock* block, TracerCallbacks& cb);
+  void tracePathToAllSinksSta(sta::Net* startNet, sta::Network* network, TracerCallbacks& cb);
+
+  // String based helpers
+  void tracePathToAllSinksDb(const std::string& inputPort);
+  void tracePathToAllSinksSta(const std::string& inputPort);
 };
 
 }  // namespace prv

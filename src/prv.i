@@ -21,10 +21,17 @@ prv::Prv * getPrv()
 
 %inline
 %{
-  void trace_path_to_all_sinks(const char* input_port)
+  void trace_path_to_all_sinks_db(const char* input_port)
   {
     if (input_port != nullptr) {
-      getPrv()->tracePathToAllSinks(input_port);
+      getPrv()->tracePathToAllSinksDb(input_port);
+    }
+  }
+
+  void trace_path_to_all_sinks_sta(const char* input_port)
+  {
+    if (input_port != nullptr) {
+      getPrv()->tracePathToAllSinksSta(input_port);
     }
   }
 %}  // inline

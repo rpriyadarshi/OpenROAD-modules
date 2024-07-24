@@ -52,5 +52,8 @@ puts "Sample: Running fanout netlist tracing from $start in tcl."
 bfs $start
 
 puts "Sample: Running fanout netlist tracing from $start in C++ using odb."
-trace_path_to_all_sinks [get_full_name $start]
+trace_path_to_all_sinks_db [get_full_name $start]
+
+puts "Sample: Running fanout netlist tracing from $start in C++ using sta."
+trace_path_to_all_sinks_sta [get_full_name $start]
 
